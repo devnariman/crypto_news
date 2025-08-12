@@ -4,7 +4,7 @@ from telegram import Update, Bot
 from telegram.ext import ContextTypes
 from datetime import datetime
 USERS_FILE = "tel_id.json"
-NEWS_FILE  = "news.json"
+NEWS_FILE_BTC  = "news_BTC.json"
 
 def _load_json_list(path: str):
     if os.path.exists(path):
@@ -16,15 +16,19 @@ def _load_json_list(path: str):
             return []
     return []
 
+
+
 def load_users():
     return _load_json_list(USERS_FILE)
 
-def load_news():
-    return _load_json_list(NEWS_FILE)
+def load_newsBTC():
+    return _load_json_list(NEWS_FILE_BTC)
+
+
 
 async def send_news_to_all(bot: Bot):
     users = load_users()
-    news_list = load_news()
+    news_list = load_newsBTC()
 
     if not news_list:
         print("خبری برای ارسال نیست.")
@@ -71,7 +75,9 @@ async def send_news_to_all(bot: Bot):
         await bot.send_message(chat_id=uid, text=f"اخبار روز {date_str} به پایان رسید ✅\nبا تشکر از شما برای استفاده از ربات ما! 🙏")
     print("all news sent to all users.")
 
-# اگر /start نگه می‌داری:
+
+
+
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
     user_first_name = update.effective_user.first_name
@@ -81,11 +87,13 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         data.append({"user_id": user_id, "first_name": user_first_name})
         with open(USERS_FILE, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
-        print("کاربر جدید ثبت شد.")
+        print(f"join {user_id} ({user_first_name})")
     else:
-        print("این کاربر قبلاً ثبت شده.")
+        print(f"subscriber {user_id} ({user_first_name})")
 
     await update.message.reply_text(f"سلام {user_first_name} 👋 خوش اومدی!")
+
+
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(

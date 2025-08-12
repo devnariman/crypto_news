@@ -17,7 +17,7 @@ class web_news():
         element = self.driver.find_element(By.CSS_SELECTOR, css_selector)
         return element
 
-    def run(self , number):
+    def run_BTC(self , number):
         self.driver = webdriver.Chrome()
         self.driver.get(self.domain)
         time.sleep(1)
@@ -37,13 +37,16 @@ class web_news():
                 Url =  a_tag.get_attribute("href")
                 b2 = web_news(Url)
                 result_html = b2.run_get()
+
                 newss.append(trs.en_to_fa(result_html))
                 print(i)
+
+
             except:
                 print('faild : ' , i)
                 continue
         
-        with open("news.json", "w", encoding="utf-8") as f:
+        with open("news_BTC.json", "w", encoding="utf-8") as f:
             json.dump(newss, f, ensure_ascii=False, indent=4)
 
         self.driver.quit()
