@@ -1,6 +1,6 @@
 # Bot_tel.py
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, Application, ContextTypes
-from dev_func import start, handle_message, send_news_to_all   # ← اینو پایین می‌نویسم
+from dev_func import start, handle_message, send_news_to_all_BTC   # ← اینو پایین می‌نویسم
 import asyncio
 
 class dev_pirate_crypto:
@@ -20,7 +20,7 @@ class dev_pirate_crypto:
 
     async def _startup_task(self, app: Application):
         await asyncio.sleep(1)
-        await send_news_to_all(app.bot)  # ← بدون نیاز به JobQueue
+        await send_news_to_all_BTC(app.bot)  # ← بدون نیاز به JobQueue
 
     def run(self):
         self.app.run_polling()

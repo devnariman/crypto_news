@@ -1,6 +1,6 @@
 # Bot_tel.py
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, Application, ContextTypes
-from dev_func import start, handle_message, send_news_to_all   # ← اینو پایین می‌نویسم
+from dev_func import start, handle_message, send_news_to_all_BTC   # ← اینو پایین می‌نویسم
 import asyncio
 
 class dev_pirate_crypto_nonenews:
