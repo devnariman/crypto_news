@@ -2,9 +2,13 @@
 import os, json, asyncio
 from telegram import Update, Bot
 from telegram.ext import ContextTypes
+from translator import traslator
 from datetime import datetime
 USERS_FILE = "tel_id.json"
 NEWS_FILE_BTC  = "news_BTC.json"
+tres = traslator()
+
+
 
 def _load_json_list(path: str):
     if os.path.exists(path):
@@ -53,14 +57,15 @@ async def send_news_to_all(bot: Bot):
             now = datetime.now()
             date_str = now.strftime("%Y-%m-%d")
             try:
+                text = tres.en_to_fa(text)
                 await bot.send_message(chat_id=uid, text=text)
-                
                 await bot.send_message(chat_id=uid, text=f"========{n}=={date_str}======")
                 await asyncio.sleep(42)  # احترام به rate limit
             except Exception as e:
                 if "Message is too long" in str(e):
                     # اگر پیام خیلی طولانی است، می‌توانیم آن را برش دهیم یا به چند بخش تقسیم کنیم
                     text = text[:4096]
+                    text = tres.en_to_fa(text)
                     await bot.send_message(chat_id=uid, text=text)
                     await bot.send_message(chat_id=uid, text=f"========{n}=={date_str}======")
                     print(f"internall send long massage for {uid} ({u.get('first_name', 'Unknown')}) : {e}")
