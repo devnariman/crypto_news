@@ -69,7 +69,7 @@ async def send_news_to_all(bot: Bot):
             n = n +1
 
         await bot.send_message(chat_id=uid, text=f"اخبار روز {date_str} به پایان رسید ✅\nبا تشکر از شما برای استفاده از ربات ما! 🙏")
-    exit(0)
+    print("all news sent to all users.")
 
 # اگر /start نگه می‌داری:
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -88,4 +88,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(f"سلام {user_first_name} 👋 خوش اومدی!")
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("نمیدونم !")
+    await update.message.reply_text(
+        "✅ شما با موفقیت به جمع اعضای ربات پیوستید.\n"
+        "📢 اخبار از منابع معتبر و به‌روز جمع‌آوری می‌شوند و به شما ارسال خواهند شد.\n"
+        "⏳ لطفاً منتظر بمانید تا تازه‌ترین خبرها برایتان ارسال شود."
+    )
