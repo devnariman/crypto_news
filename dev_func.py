@@ -52,7 +52,7 @@ async def send_news_to_all(bot: Bot):
                 await bot.send_message(chat_id=uid, text=text)
                 
                 await bot.send_message(chat_id=uid, text=f"========{n}=={date_str}======")
-                await asyncio.sleep(0.05)  # احترام به rate limit
+                await asyncio.sleep(42)  # احترام به rate limit
             except Exception as e:
                 if "Message is too long" in str(e):
                     # اگر پیام خیلی طولانی است، می‌توانیم آن را برش دهیم یا به چند بخش تقسیم کنیم
