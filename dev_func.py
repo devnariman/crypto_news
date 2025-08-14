@@ -3,6 +3,7 @@ import os, json, asyncio
 from telegram import Update, Bot , ReplyKeyboardMarkup, KeyboardButton
 from telegram.ext import ContextTypes ,MessageHandler, filters
 from translator import traslator
+import jdatetime
 from datetime import datetime
 USERS_FILE = "tel_id.json"
 NEWS_FILE_BTC  = "news_BTC.json"
@@ -54,10 +55,15 @@ async def send_news_to_all_BTC(bot: Bot):
 
             now = datetime.now()
             date_str = now.strftime("%Y-%m-%d")
+            now_sh = jdatetime.datetime.now()
+            date_str_sh = now_sh.strftime("%Y-%m-%d")
+            weekdays = ["دوشنبه", "سه‌شنبه", "چهارشنبه", "پنج‌شنبه", "جمعه", "شنبه", "یک‌شنبه"]
+            day_name = weekdays[now.weekday()]
+            full_date = f"{day_name} {date_str}"
             try:
                 text = tres.en_to_fa(text)
                 await bot.send_message(chat_id=uid, text=text)
-                await bot.send_message(chat_id=uid, text=f"================={n}=={date_str}================")
+                await bot.send_message(chat_id=uid, text=f"=={n}==={date_str}==={full_date}==")
                 await asyncio.sleep(42)  # احترام به rate limit
             except Exception as e:
                 if "Message is too long" in str(e):
@@ -65,7 +71,7 @@ async def send_news_to_all_BTC(bot: Bot):
                     text = text[:4096]
                     text = tres.en_to_fa(text)
                     await bot.send_message(chat_id=uid, text=text)
-                    await bot.send_message(chat_id=uid, text=f"================={n}=={date_str}================")
+                    await bot.send_message(chat_id=uid, text=f"=={n}==={date_str}==={full_date}==")
                     print(f"internall send long massage for {uid} ({u.get('first_name', 'Unknown')}) : {e}")
 
                     await asyncio.sleep(42)  # احترام به rate limit
@@ -124,20 +130,25 @@ async def send_btc_news(chat_id, bot):
 
             now = datetime.now()
             date_str = now.strftime("%Y-%m-%d")
+            now_sh = jdatetime.datetime.now()
+            date_str_sh = now_sh.strftime("%Y-%m-%d")
+            weekdays = ["دوشنبه", "سه‌شنبه", "چهارشنبه", "پنج‌شنبه", "جمعه", "شنبه", "یک‌شنبه"]
+            day_name = weekdays[now.weekday()]
+            full_date = f"{day_name} {date_str}"
             try:
                 text = tres.en_to_fa(text)
-                await bot.send_message(chat_id=uid, text=text)
-                await bot.send_message(chat_id=uid, text=f"================={n}=={date_str}================")
-                await asyncio.sleep(0.05)  # احترام به rate limit
+                await bot.send_message(chat_id=uid, text=text[:4095])
+                await bot.send_message(chat_id=uid, text=f"=={n}==={date_str}==={full_date}==")
+                await asyncio.sleep(0.03)  # احترام به rate limit
             except Exception as e:
                 if "Message is too long" in str(e):
-                    text = text[:4096]
+                    text = text[:4095]
                     text = tres.en_to_fa(text)
                     await bot.send_message(chat_id=uid, text=text)
-                    await bot.send_message(chat_id=uid, text=f"================={n}=={date_str}================")
+                    await bot.send_message(chat_id=uid, text=f"=={n}==={date_str}==={full_date}==")
                     print(f"internall send long massage for {uid} ({uid('first_name', 'Unknown')}) : {e}")
 
-                    await asyncio.sleep(0.05)  # احترام به rate limit
+                    await asyncio.sleep(0.03)  # احترام به rate limit
                 else:
                     print(f"external Error for {uid} ({uid('first_name', 'Unknown')}) : {e}")
         n = n +1
