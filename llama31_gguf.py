@@ -21,7 +21,7 @@ class AIModel_Llm:
 
         # پارامترهای تولید متن
         self.GENERATION_KWARGS = {
-            "max_tokens": 512,
+            "max_tokens": 500,
             "temperature": 0.6,
             "top_p": 0.95,
             "repeat_penalty": 1.08,

@@ -63,7 +63,7 @@ async def send_news_to_all_BTC(bot: Bot):
             try:
                 text = tres.en_to_fa(text)
                 await bot.send_message(chat_id=uid, text=text)
-                await bot.send_message(chat_id=uid, text=f"=={n}==={date_str}==={full_date}==")
+                await bot.send_message(chat_id=uid, text=f"=== {n} === {full_date} ===")
                 await asyncio.sleep(42)  # احترام به rate limit
             except Exception as e:
                 if "Message is too long" in str(e):
@@ -71,7 +71,7 @@ async def send_news_to_all_BTC(bot: Bot):
                     text = text[:4096]
                     text = tres.en_to_fa(text)
                     await bot.send_message(chat_id=uid, text=text)
-                    await bot.send_message(chat_id=uid, text=f"=={n}==={date_str}==={full_date}==")
+                    await bot.send_message(chat_id=uid, text=f"=== {n} === {full_date} ===")
                     print(f"internall send long massage for {uid} ({u.get('first_name', 'Unknown')}) : {e}")
 
                     await asyncio.sleep(42)  # احترام به rate limit
@@ -138,14 +138,14 @@ async def send_btc_news(chat_id, bot):
             try:
                 text = tres.en_to_fa(text)
                 await bot.send_message(chat_id=uid, text=text[:4095])
-                await bot.send_message(chat_id=uid, text=f"=={n}==={date_str}==={full_date}==")
+                await bot.send_message(chat_id=uid, text=f"=== {n} === {full_date} ===")
                 await asyncio.sleep(0.03)  # احترام به rate limit
             except Exception as e:
                 if "Message is too long" in str(e):
                     text = text[:4095]
                     text = tres.en_to_fa(text)
                     await bot.send_message(chat_id=uid, text=text)
-                    await bot.send_message(chat_id=uid, text=f"=={n}==={date_str}==={full_date}==")
+                    await bot.send_message(chat_id=uid, text=f"=== {n} === {full_date} ===")
                     print(f"internall send long massage for {uid} ({uid('first_name', 'Unknown')}) : {e}")
 
                     await asyncio.sleep(0.03)  # احترام به rate limit
